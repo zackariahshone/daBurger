@@ -1,0 +1,24 @@
+{
+  "name": "daburger",
+  "version": "1.0.0",
+  "description": "create burgers to be eaten",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zackariahshone/daBurger.git"
+  },
+  "author": "ZackariahShone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zackariahshone/daBurger/issues"
+  },
+  "homepage": "https://github.com/zackariahshone/daBurger#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "mysql": "^2.18.1"
+  }
+}
