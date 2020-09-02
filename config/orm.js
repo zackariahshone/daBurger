@@ -1,40 +1,38 @@
 const connection = require('./connection');
 
 const orm = {
-    selectAll: function (tableInput) {
-        const queryString = "SELECT * FROM burgers";
-        connection.query("SELECT * FROM burgers", function (err, result) {
-            if (err) throw err;
-            console.log(result);
-        });
+    select: function(whatToSelect, tableInput) {
+      const queryString = "SELECT ?? FROM ??";
+      connection.query(queryString, [whatToSelect, tableInput], function(err, result) {
+        if (err) throw err;
+        console.log(result);
+      });
     },
-    selectOne: function (burgerID) {
-        console.log(burgerID);
-        const queryString = "SELECT FROM * burgers WHERE id = ?";
-        connection.query(queryString, [burgerID], function(err, result){
-            //if(err) throw err;
-            console.log(result);
-        });
+    selectWhere: function(tableInput, colToSearch, valOfCol) {
+      const queryString = "SELECT * FROM ?? WHERE ?? = ?";
+  
+      console.log(queryString);
+  
+      connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
+        if (err) throw err;
+        console.log(result);
+      });
     },
-    updateProduct: function() {
-        console.log("Updating all Rocky Road quantities...\n");
-        const query = connection.query(
-          "UPDATE burgers SET ? WHERE ?",
-          [
-            {
-                burger_name: burgername
-            },
-            {
-                devoured: devoured
-            }
-          ],
-          function(err, res) {
-            if (err) throw err;
-            console.log(res.affectedRows + " products updated!\n");
-            // Call deleteProduct AFTER the UPDATE completes
-            deleteProduct();
-          });
+    leftJoin: function(whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol) {
+      let queryString = "SELECT ?? FROM ?? AS tOne";
+      queryString += " LEFT JOIN ?? AS tTwo";
+      queryString += " ON tOne.?? = tTwo.??";
+  
+      console.log(queryString);
+  
+      connection.query(queryString, [whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol], function(
+        err,
+        result
+      ) {
+        if (err) throw err;
+        console.log(result);
+      });
     }
-}
+  };
 
 module.exports = orm;
