@@ -1,38 +1,54 @@
 const connection = require('./connection');
 
-const orm = {
-    select: function(whatToSelect, tableInput) {
-      const queryString = "SELECT ?? FROM ??";
-      connection.query(queryString, [whatToSelect, tableInput], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    selectWhere: function(tableInput, colToSearch, valOfCol) {
-      const queryString = "SELECT * FROM ?? WHERE ?? = ?";
-  
-      console.log(queryString);
-  
-      connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    leftJoin: function(whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol) {
-      let queryString = "SELECT ?? FROM ?? AS tOne";
-      queryString += " LEFT JOIN ?? AS tTwo";
-      queryString += " ON tOne.?? = tTwo.??";
-  
-      console.log(queryString);
-  
-      connection.query(queryString, [whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol], function(
-        err,
-        result
-      ) {
-        if (err) throw err;
-        console.log(result);
-      });
-    }
-  };
+const orm = { 
+    all: function(tableInput, cb) {
+    const queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  create: function(table, cols, vals, cb) {
+    let queryString = "INSERT INTO " + table;
+
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  },
+  // An example of objColVals would be {name: panther, sleepy: true}
+  update: function(table, objColVals, condition, cb) {
+    let queryString = "UPDATE " + table;
+
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
+
+    console.log(queryString);
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  }
+};
+
 
 module.exports = orm;
