@@ -13,7 +13,7 @@ router.get("/", function(req, res) {
     const hbsObject = {
       burgers: data
     };
-    console.log(hbsObject);
+    console.log('this is from the db', hbsObject);
     res.render("index", hbsObject);
   });
 });
