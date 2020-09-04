@@ -11,9 +11,9 @@ const router = express.Router();
 router.get("/", function(req, res) {
   burger.all(function(data) {
     const hbsObject = {
-      burgers: data
+      cats: data
     };
-    console.log('this is from the db', hbsObject);
+    console.log('this is from the db',hbsObject);
     res.render("index", hbsObject);
   });
 });
