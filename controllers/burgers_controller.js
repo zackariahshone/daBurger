@@ -3,6 +3,7 @@ const burger = require('../models/burger.js');
 const router = express.Router();
 
 
+
 // Import the model (cat.js) to use its database functions.
 
 
@@ -10,7 +11,7 @@ const router = express.Router();
 router.get("/", function(req, res) {
   burger.all(function(data) {
     const hbsObject = {
-      burger: data
+      burgers: data
     };
     console.log(hbsObject);
     res.render("index", hbsObject);
@@ -47,5 +48,5 @@ router.put("/api/burger/:id", function(req, res) {
 
 // Export routes for server.js to use.
 module.exports = router;
-console.log(router);
+
 
