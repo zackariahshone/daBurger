@@ -7,9 +7,8 @@ const burger = {
       });
     },
     // The variables cols and vals are arrays.
-    create: function(cols, vals, cb) {
+    create: function(cols, vals) {
       orm.create("burgers", cols, vals, function(res) {
-        cb(res);
       });
     },
     update: function(objColVals, condition, cb) {

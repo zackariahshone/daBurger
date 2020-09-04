@@ -14,12 +14,13 @@ router.get("/", function(req, res) {
       burgers: data
     };
     console.log('this is from the db', hbsObject);
+    console.log("log burger" ,data);
     res.render("index", hbsObject);
   });
 });
 
 router.post("/api/burger", function(req, res) {
-  burger.create(["name", "sleepy"], [req.body.name, req.body.sleepy], function(result) {
+  burger.create(["burger_name"], [req.body.name], function(result) {
     // Send back the ID of the new quote
     res.json({ id: result.insertId });
   });
